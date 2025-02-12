@@ -2,6 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   return (
@@ -45,8 +46,10 @@ const Blog = () => {
               <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
               <p className="text-sm text-muted mb-2">{post.date}</p>
               <p className="text-muted mb-4">{post.description}</p>
-              <Button variant="outline" size="sm">
-                Read More <ArrowRight className="w-4 h-4 ml-2" />
+              <Button variant="outline" size="sm" asChild>
+                <Link to={`/blog/${post.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                  Read More <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
               </Button>
             </Card>
           ))}
