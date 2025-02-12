@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Card } from "@/components/ui/card";
@@ -7,16 +6,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Github, ExternalLink, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const texts = ["Ctrlpaste.", "Create.", "Connect."];
   const { scrollY } = useScroll();
 
-  // Create opacity transforms for each section
   const section1Opacity = useTransform(scrollY, [0, 500], [1, 0]);
   const section2Opacity = useTransform(scrollY, [300, 500, 1000, 1200], [0, 1, 1, 0]);
   const section3Opacity = useTransform(scrollY, [1000, 1200], [0, 1]);
+  const footerOpacity = useTransform(scrollY, [0, 500], [0, 1]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,7 +27,6 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">
-      {/* Hero Section */}
       <motion.section 
         style={{ opacity: section1Opacity }}
         className="fixed top-0 left-0 w-full min-h-screen flex flex-col items-center justify-center bg-black gap-8"
@@ -40,12 +39,16 @@ const Index = () => {
         >
           {texts[currentTextIndex]}
         </motion.h1>
-        <Button asChild variant="outline" size="lg">
-          <Link to="/blog">Visit Blog</Link>
-        </Button>
+        <div className="flex gap-4">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/projects">View All Projects</Link>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link to="/blog">Visit Blog</Link>
+          </Button>
+        </div>
       </motion.section>
 
-      {/* Projects Section */}
       <motion.section 
         style={{ opacity: section2Opacity }}
         className="fixed top-0 left-0 w-full min-h-screen py-20 px-4 md:px-8 bg-[#1A1A1A]"
@@ -101,7 +104,6 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Contact Section */}
       <motion.section 
         style={{ opacity: section3Opacity }}
         className="fixed top-0 left-0 w-full min-h-screen py-20 px-4 md:px-8 bg-black"
@@ -148,7 +150,13 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Spacer div to enable scrolling */}
+      <motion.div 
+        style={{ opacity: footerOpacity }}
+        className="fixed bottom-0 left-0 w-full"
+      >
+        <Footer />
+      </motion.div>
+
       <div style={{ height: "300vh" }} />
     </div>
   );

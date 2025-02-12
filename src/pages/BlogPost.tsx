@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const BlogPost = () => {
   const { title } = useParams();
@@ -50,35 +52,43 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-black py-20 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8">Post not found</h1>
-          <Button asChild variant="outline">
-            <Link to="/blog">
-              <ArrowLeft className="mr-2" />
-              Back to Blog
-            </Link>
-          </Button>
+      <div className="min-h-screen bg-black">
+        <Header />
+        <div className="py-28 px-4 md:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold mb-8">Post not found</h1>
+            <Button asChild variant="outline">
+              <Link to="/blog">
+                <ArrowLeft className="mr-2" />
+                Back to Blog
+              </Link>
+            </Button>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black py-20 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto">
-        <Button asChild variant="outline" className="mb-8">
-          <Link to="/blog">
-            <ArrowLeft className="mr-2" />
-            Back to Blog
-          </Link>
-        </Button>
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">{post.title}</h1>
-        <p className="text-muted mb-8">{post.date}</p>
-        <div className="prose prose-invert max-w-none">
-          <p className="text-xl leading-relaxed">{post.content}</p>
+    <div className="min-h-screen bg-black">
+      <Header />
+      <div className="py-28 px-4 md:px-8">
+        <div className="max-w-4xl mx-auto">
+          <Button asChild variant="outline" className="mb-8">
+            <Link to="/blog">
+              <ArrowLeft className="mr-2" />
+              Back to Blog
+            </Link>
+          </Button>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">{post.title}</h1>
+          <p className="text-muted mb-8">{post.date}</p>
+          <div className="prose prose-invert max-w-none">
+            <p className="text-xl leading-relaxed">{post.content}</p>
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
