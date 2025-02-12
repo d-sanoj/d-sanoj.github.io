@@ -1,15 +1,21 @@
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, Github, ExternalLink } from "lucide-react";
+import { ArrowRight, Github, ExternalLink, Mail } from "lucide-react";
 
 const Index = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const texts = ["Ctrlpaste.", "Create.", "Connect."];
+  const { scrollY } = useScroll();
+
+  // Create opacity transforms for each section
+  const section1Opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const section2Opacity = useTransform(scrollY, [300, 500, 1000, 1200], [0, 1, 1, 0]);
+  const section3Opacity = useTransform(scrollY, [1000, 1200], [0, 1]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,23 +25,29 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center">
+      <motion.section 
+        style={{ opacity: section1Opacity }}
+        className="fixed top-0 left-0 w-full min-h-screen flex items-center justify-center bg-black"
+      >
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-6xl md:text-8xl font-bold tracking-tighter"
+          className="text-8xl md:text-[12rem] font-bold tracking-tighter"
         >
           {texts[currentTextIndex]}
         </motion.h1>
-      </section>
+      </motion.section>
 
       {/* Projects Section */}
-      <section className="min-h-screen py-20 px-4 md:px-8">
+      <motion.section 
+        style={{ opacity: section2Opacity }}
+        className="fixed top-0 left-0 w-full min-h-screen py-20 px-4 md:px-8 bg-[#1A1A1A]"
+      >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Featured Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12">{`<projects/>`}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -78,39 +90,57 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Section */}
-      <section className="min-h-screen py-20 px-4 md:px-8">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Get in Touch</h2>
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-            <div>
+      <motion.section 
+        style={{ opacity: section3Opacity }}
+        className="fixed top-0 left-0 w-full min-h-screen py-20 px-4 md:px-8 bg-black"
+      >
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-4xl md:text-6xl font-bold mb-8">{`<Contact />`}</h2>
+            <h3 className="text-3xl md:text-4xl font-bold mb-6">Let's Connect</h3>
+            <p className="text-xl text-muted mb-8">
+              Have a project in mind? Want to collaborate? Or just want to say hi? I'd love to hear from you.
+            </p>
+            <div className="space-y-4">
+              <a href="mailto:hello@ctrlpaste.com" className="flex items-center text-xl hover:text-accent transition-colors">
+                <Mail className="w-6 h-6 mr-3" />
+                hello@ctrlpaste.com
+              </a>
+              <a href="https://github.com/ctrlpaste" target="_blank" rel="noopener noreferrer" className="flex items-center text-xl hover:text-accent transition-colors">
+                <Github className="w-6 h-6 mr-3" />
+                @ctrlpaste
+              </a>
+            </div>
+          </div>
+          <div className="bg-[#111111] rounded-lg p-8">
+            <h3 className="text-2xl font-bold mb-6">Quick Connect</h3>
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <Input
                 placeholder="Your Name"
                 className="bg-background/50 border-foreground/10 focus:border-foreground/20"
               />
-            </div>
-            <div>
               <Input
                 type="email"
                 placeholder="Your Email"
                 className="bg-background/50 border-foreground/10 focus:border-foreground/20"
               />
-            </div>
-            <div>
               <Textarea
                 placeholder="Your Message"
                 className="bg-background/50 border-foreground/10 focus:border-foreground/20 min-h-[150px]"
               />
-            </div>
-            <Button className="w-full group">
-              Send Message
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </form>
+              <Button className="w-full">
+                Send Message
+              </Button>
+            </form>
+          </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Spacer div to enable scrolling */}
+      <div style={{ height: "300vh" }} />
     </div>
   );
 };
