@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Github, ExternalLink, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -29,7 +30,7 @@ const Index = () => {
       {/* Hero Section */}
       <motion.section 
         style={{ opacity: section1Opacity }}
-        className="fixed top-0 left-0 w-full min-h-screen flex items-center justify-center bg-black"
+        className="fixed top-0 left-0 w-full min-h-screen flex flex-col items-center justify-center bg-black gap-8"
       >
         <motion.h1
           initial={{ opacity: 0 }}
@@ -39,6 +40,9 @@ const Index = () => {
         >
           {texts[currentTextIndex]}
         </motion.h1>
+        <Button asChild variant="outline" size="lg">
+          <Link to="/blog">Visit Blog</Link>
+        </Button>
       </motion.section>
 
       {/* Projects Section */}
@@ -47,7 +51,12 @@ const Index = () => {
         className="fixed top-0 left-0 w-full min-h-screen py-20 px-4 md:px-8 bg-[#1A1A1A]"
       >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">{`<projects/>`}</h2>
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-4xl md:text-6xl font-bold">{`<projects/>`}</h2>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/projects">View All Projects</Link>
+            </Button>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -99,7 +108,7 @@ const Index = () => {
       >
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8">{`<Contact />`}</h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-8">{`<contact/>`}</h2>
             <h3 className="text-3xl md:text-4xl font-bold mb-6">Let's Connect</h3>
             <p className="text-xl text-muted mb-8">
               Have a project in mind? Want to collaborate? Or just want to say hi? I'd love to hear from you.
