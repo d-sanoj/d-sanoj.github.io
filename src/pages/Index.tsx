@@ -39,14 +39,9 @@ const Index = () => {
         >
           {texts[currentTextIndex]}
         </motion.h1>
-        <div className="flex gap-4">
-          <Button asChild variant="outline" size="lg">
-            <Link to="/projects">View All Projects</Link>
-          </Button>
-          <Button asChild variant="outline" size="lg">
-            <Link to="/blog">Visit Blog</Link>
-          </Button>
-        </div>
+        <Button asChild variant="outline" size="lg">
+          <Link to="/blog">Visit Blog</Link>
+        </Button>
       </motion.section>
 
       <motion.section 
@@ -54,13 +49,8 @@ const Index = () => {
         className="fixed top-0 left-0 w-full min-h-screen py-20 px-4 md:px-8 bg-[#1A1A1A]"
       >
         <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-4xl md:text-6xl font-bold">{`<projects/>`}</h2>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/projects">View All Projects</Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="text-4xl md:text-6xl font-bold mb-12">{`<projects/>`}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {[
               {
                 title: "Project One",
@@ -100,6 +90,11 @@ const Index = () => {
                 </div>
               </Card>
             ))}
+          </div>
+          <div className="flex justify-center">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/projects">View All Projects</Link>
+            </Button>
           </div>
         </div>
       </motion.section>
