@@ -23,6 +23,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './build'
+      - name: List files
+	run: ls -la
+	
   deploy:
     needs: build
     runs-on: ubuntu-latest
